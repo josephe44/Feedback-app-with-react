@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import Header from './components/Header'
 import FeedbackList from './components/FeedbackList'
 import FeedbackStats from './components/FeedbackStats'
@@ -14,6 +15,11 @@ function App() {
     }
   }
 
+  const addFeedback = (newFeedback) => {
+    newFeedback.id = uuidv4()
+    setFeedback([newFeedback, ...feedback])
+  }
+
   return (
     <>
       {/*Header UI and Add a prop to the header for dynamic use */}
@@ -21,7 +27,7 @@ function App() {
       {/* Container of the body */}
       <div className="container">
         {/* Feedback form  */}
-        <FeedbackForm />
+        <FeedbackForm handleAdd={addFeedback} />
         {/* Feedback stats for each feedback and total of them */}
         <FeedbackStats feedback={feedback} />
         {/* Feedback Item UI */}
