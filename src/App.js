@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Header from './components/Header'
@@ -5,6 +6,8 @@ import FeedbackList from './components/FeedbackList'
 import FeedbackStats from './components/FeedbackStats'
 import FeedbackData from './data/FeedbackData'
 import FeedbackForm from './components/FeedbackForm'
+import AboutIconLink from './components/AboutIconLink'
+import AboutPage from './pages/AboutPage'
 
 function App() {
   const [feedback, setFeedback] = useState(FeedbackData)
@@ -21,19 +24,34 @@ function App() {
   }
 
   return (
-    <>
+    <Router>
       {/*Header UI and Add a prop to the header for dynamic use */}
       <Header logo="Feedback UI" />
       {/* Container of the body */}
       <div className="container">
-        {/* Feedback form  */}
-        <FeedbackForm handleAdd={addFeedback} />
-        {/* Feedback stats for each feedback and total of them */}
-        <FeedbackStats feedback={feedback} />
-        {/* Feedback Item UI */}
-        <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                {/* Feedback form  */}
+                <FeedbackForm handleAdd={addFeedback} />
+                {/* Feedback stats for each feedback and total of them */}
+                <FeedbackStats feedback={feedback} />
+                {/* Feedback Item UI */}
+                <FeedbackList
+                  feedback={feedback}
+                  handleDelete={deleteFeedback}
+                />
+              </>
+            }
+          ></Route>
+          {/* About page */}
+          <Route path="/about" element={<AboutPage />} />
+        </Routes>
+        <AboutIconLink />
       </div>
-    </>
+    </Router>
   )
 }
 

@@ -17,7 +17,7 @@ function FeedbackStats({ feedback }) {
   )
 }
 
-FeedbackStats.prototype = {
+FeedbackStats.propTypes = {
   feedback: PropTypes.array.isRequired,
 }
 
